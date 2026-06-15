@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Catálogo Online | Brutal Mídia</title>
+  <style>
+    :root {
+      --bg: #050505;
+      --card: #111111;
+      --card2: #171717;
+      --red: #ef1c12;
+      --white: #ffffff;
+      --muted: #b8b8b8;
+      --line: #2a2a2a;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background:
+        radial-gradient(circle at top right, rgba(239, 28, 18, .20), transparent 28%),
+        radial-gradient(circle at bottom left, rgba(239, 28, 18, .18), transparent 32%),
+        var(--bg);
+      color: var(--white);
+      line-height: 1.45;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .container {
+      width: min(1120px, 92%);
+      margin: 0 auto;
+    }
+
+    header {
+      padding: 42px 0 26px;
+      text-align: center;
+    }
+
+    .logo {
+      font-size: clamp(32px, 7vw, 68px);
+      font-weight: 900;
+      letter-spacing: -2px;
+      line-height: .95;
+      margin: 0;
+    }
+
+    .logo span { color: var(--red); }
+
+    .tagline {
+      margin: 12px auto 0;
+      color: var(--muted);
+      font-size: clamp(15px, 2.6vw, 20px);
+      max-width: 720px;
+    }
+
+    .hero {
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background: linear-gradient(135deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      box-shadow: 0 20px 70px rgba(0,0,0,.45);
+      margin: 16px 0 28px;
+    }
+
+    .hero h2 {
+      margin: 0 0 8px;
+      font-size: clamp(25px, 5vw, 48px);
+      line-height: 1.03;
+    }
+
+    .hero h2 span { color: var(--red); }
+
+    .hero p {
+      color: var(--muted);
+      max-width: 760px;
+      font-size: 18px;
+      margin: 0 0 20px;
+    }
+
+    .cta-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 18px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px 18px;
+      border-radius: 999px;
+      font-weight: 800;
+      transition: .2s;
+      border: 1px solid transparent;
+    }
+
+    .btn-primary {
+      background: var(--red);
+      color: var(--white);
+    }
+
+    .btn-outline {
+      border-color: #444;
+      color: var(--white);
+      background: rgba(255,255,255,.04);
+    }
+
+    .btn:hover { transform: translateY(-2px); }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 44px 0 18px;
+      font-size: 26px;
+      font-weight: 900;
+    }
+
+    .section-title::before {
+      content: "";
+      width: 8px;
+      height: 28px;
+      border-radius: 10px;
+      background: var(--red);
+      display: inline-block;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    @media (max-width: 860px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+
+    .card {
+      background: linear-gradient(180deg, var(--card2), var(--card));
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 22px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::after {
+      content: "";
+      position: absolute;
+      right: -45px;
+      top: -45px;
+      width: 110px;
+      height: 110px;
+      background: rgba(239, 28, 18, .16);
+      border-radius: 50%;
+      filter: blur(10px);
+    }
+
+    .label {
+      display: inline-block;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: rgba(239, 28, 18, .12);
+      color: #ff766f;
+      font-size: 13px;
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+
+    .card h3 {
+      margin: 0 0 8px;
+      font-size: 24px;
+      line-height: 1.1;
+    }
+
+    .price {
+      font-size: 34px;
+      font-weight: 900;
+      color: var(--red);
+      margin: 8px 0 12px;
+    }
+
+    .price small {
+      font-size: 15px;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    ul {
+      padding: 0;
+      margin: 14px 0 0;
+      list-style: none;
+    }
+
+    li {
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+      color: #eaeaea;
+    }
+
+    li:last-child { border-bottom: 0; }
+
+    li::before {
+      content: "›";
+      color: var(--red);
+      font-weight: 900;
+      margin-right: 8px;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(255,255,255,.03);
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      min-width: 760px;
+    }
+
+    th, td {
+      padding: 14px 16px;
+      text-align: left;
+      border-bottom: 1px solid var(--line);
+    }
+
+    th {
+      background: rgba(239, 28, 18, .16);
+      color: var(--white);
+      font-weight: 900;
+    }
+
+    td {
+      color: #eeeeee;
+    }
+
+    tr:last-child td { border-bottom: 0; }
+
+    .highlight {
+      color: var(--red);
+      font-weight: 900;
+    }
+
+    .notice {
+      margin: 18px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .footer-cta {
+      margin: 48px 0 34px;
+      padding: 28px;
+      border-radius: 26px;
+      border: 1px solid rgba(239, 28, 18, .4);
+      background: linear-gradient(135deg, rgba(239, 28, 18, .18), rgba(255,255,255,.04));
+      text-align: center;
+    }
+
+    .footer-cta h2 {
+      font-size: clamp(26px, 5vw, 44px);
+      margin: 0 0 8px;
+    }
+
+    .footer-cta p {
+      color: var(--muted);
+      margin: 0 auto 18px;
+      max-width: 720px;
+      font-size: 18px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 22px 0 34px;
+      color: #888;
+      font-size: 14px;
+    }
+
+    .whatsapp-float {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      background: #21c45a;
+      color: white;
+      padding: 14px 18px;
+      border-radius: 999px;
+      font-weight: 900;
+      box-shadow: 0 12px 30px rgba(0,0,0,.35);
+      z-index: 20;
+    }
+
+    @media print {
+      .whatsapp-float { display: none; }
+      body { background: #050505; }
+    }
+  </style>
+</head>
+<body>
+  <a class="whatsapp-float" href="https://wa.me/5562993650798?text=Ol%C3%A1%2C%20vi%20o%20cat%C3%A1logo%20da%20Brutal%20M%C3%ADdia%20e%20quero%20uma%20arte%20teste." target="_blank">WhatsApp</a>
+
+  <header class="container">
+    <h1 class="logo">BRUTAL <span>MÍDIA</span></h1>
+    <p class="tagline">Artes, posts, vídeos, tráfego pago e presença digital para empresas locais.</p>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <h2>Catálogo online de <span>pacotes e preços</span></h2>
+      <p>Você manda fotos, vídeos, promoções e informações. A Brutal Mídia transforma tudo em divulgação pronta para Instagram, WhatsApp e anúncios.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="https://wa.me/5562993650798?text=Ol%C3%A1%2C%20quero%20conhecer%20os%20planos%20da%20Brutal%20M%C3%ADdia." target="_blank">Chamar no WhatsApp</a>
+        <a class="btn btn-outline" href="#planos">Ver planos</a>
+      </div>
+    </section>
+
+    <h2 id="planos" class="section-title">Planos principais</h2>
+    <section class="grid">
+      <article class="card">
+        <span class="label">Comércio pequeno</span>
+        <h3>Plano Básico</h3>
+        <div class="price">R$ 80 <small>/ semana</small></div>
+        <ul>
+          <li>3 artes por semana</li>
+          <li>3 status para WhatsApp</li>
+          <li>3 legendas simples</li>
+          <li>1 ajuste simples por arte</li>
+          <li>Ideal para barbearia, lava-jato e pequenos serviços</li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <span class="label">Mais divulgação</span>
+        <h3>Plano Comercial</h3>
+        <div class="price">R$ 120 <small>/ semana</small></div>
+        <ul>
+          <li>4 artes por semana</li>
+          <li>Status para WhatsApp</li>
+          <li>Legendas comerciais</li>
+          <li>Organização de ofertas</li>
+          <li>Ideal para lojas, pet shop, agropecuária e estética</li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <span class="label">Promoções frequentes</span>
+        <h3>Plano Movimento</h3>
+        <div class="price">R$ 150 <small>/ semana</small></div>
+        <ul>
+          <li>5 artes por semana</li>
+          <li>Status para WhatsApp</li>
+          <li>Foco em oferta e conversão</li>
+          <li>Chamadas para WhatsApp</li>
+          <li>Ideal para lanchonetes, restaurantes e mercados pequenos</li>
+        </ul>
+      </article>
+    </section>
+
+    <h2 class="section-title">Tabela por tipo de negócio</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Tipo de negócio</th>
+            <th>Plano recomendado</th>
+            <th>Entrega semanal</th>
+            <th>Valor sugerido</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Barbearia</td><td>Básico</td><td>3 artes + 3 status + legendas</td><td class="highlight">R$ 80/semana</td></tr>
+          <tr><td>Salão / estética</td><td>Básico Plus</td><td>3 artes + status + agenda</td><td class="highlight">R$ 100/semana</td></tr>
+          <tr><td>Oficina mecânica</td><td>Básico Plus</td><td>3 artes + dicas/prevenção + CTA</td><td class="highlight">R$ 100/semana</td></tr>
+          <tr><td>Loja de roupas</td><td>Comercial</td><td>4 artes + status + peças/ofertas</td><td class="highlight">R$ 120/semana</td></tr>
+          <tr><td>Pet shop</td><td>Comercial</td><td>4 artes + status + produtos/serviços</td><td class="highlight">R$ 120/semana</td></tr>
+          <tr><td>Agropecuária</td><td>Comercial Agro</td><td>4 artes + status + produto/dica</td><td class="highlight">R$ 120 a R$ 150/semana</td></tr>
+          <tr><td>Lanchonete / espetinho</td><td>Movimento</td><td>5 artes + status + ofertas</td><td class="highlight">R$ 150/semana</td></tr>
+          <tr><td>Restaurante</td><td>Movimento Plus</td><td>5 artes + status + cardápio/ofertas</td><td class="highlight">R$ 150 a R$ 200/semana</td></tr>
+          <tr><td>Mercado pequeno</td><td>Mercado Básico</td><td>5 artes de promoções + status</td><td class="highlight">R$ 150/semana</td></tr>
+          <tr><td>Mercado médio</td><td>Mercado Forte</td><td>8 a 10 artes + carrossel + status</td><td class="highlight">R$ 250/semana</td></tr>
+          <tr><td>Academia</td><td>Conversão</td><td>4 artes + agenda + matrícula</td><td class="highlight">R$ 120 a R$ 150/semana</td></tr>
+          <tr><td>Loja de celular</td><td>Comercial</td><td>4 artes + ofertas + status</td><td class="highlight">R$ 120/semana</td></tr>
+          <tr><td>Lava-jato</td><td>Básico</td><td>3 artes + status + agenda</td><td class="highlight">R$ 80 a R$ 100/semana</td></tr>
+          <tr><td>Clínica / consultório</td><td>Profissional</td><td>4 artes + educativo + agenda</td><td class="highlight">R$ 150/semana</td></tr>
+          <tr><td>Prefeitura / instituição</td><td>Institucional</td><td>Calendário + campanhas + comunicados</td><td class="highlight">Sob proposta mensal</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="notice">Os valores podem variar conforme volume de publicações, urgência, complexidade e necessidade de acompanhamento.</p>
+
+    <h2 class="section-title">Pacotes mensais</h2>
+    <section class="grid">
+      <article class="card">
+        <span class="label">Start</span>
+        <h3>Presença inicial</h3>
+        <div class="price">R$ 320 <small>/ mês</small></div>
+        <ul>
+          <li>12 artes por mês</li>
+          <li>Status para WhatsApp</li>
+          <li>Legendas simples</li>
+          <li>Ideal para comércio pequeno</li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <span class="label">Local</span>
+        <h3>Divulgação constante</h3>
+        <div class="price">R$ 450 <small>/ mês</small></div>
+        <ul>
+          <li>16 artes por mês</li>
+          <li>Status para WhatsApp</li>
+          <li>Legendas comerciais</li>
+          <li>Ideal para lojas, oficinas, pet e salão</li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <span class="label">Movimento</span>
+        <h3>Mais volume</h3>
+        <div class="price">R$ 600 <small>/ mês</small></div>
+        <ul>
+          <li>20 artes por mês</li>
+          <li>Status para WhatsApp</li>
+          <li>2 vídeos simples</li>
+          <li>Ideal para lanchonete, agro e academia</li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <span class="label">Mercado</span>
+        <h3>Ofertas semanais</h3>
+        <div class="price">R$ 800–1000 <small>/ mês</small></div>
+        <ul>
+          <li>25 a 40 artes por mês</li>
+          <li>Carrossel de ofertas</li>
+          <li>Status para WhatsApp</li>
+          <li>Ideal para mercados e ofertas frequentes</li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <span class="label">Performance</span>
+        <h3>Conteúdo + anúncio</h3>
+        <div class="price">R$ 700–1200 <small>/ mês</small></div>
+        <ul>
+          <li>Artes e status</li>
+          <li>Suporte de tráfego pago</li>
+          <li>Organização de campanha</li>
+          <li>Verba do anúncio separada</li>
+        </ul>
+      </article>
+    </section>
+
+    <h2 class="section-title">Serviços extras</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Serviço extra</th>
+            <th>Valor</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Vídeo curto editado com material enviado</td><td class="highlight">R$ 30</td></tr>
+          <tr><td>Vídeo mais trabalhado</td><td class="highlight">R$ 50 a R$ 80</td></tr>
+          <tr><td>Carrossel simples</td><td class="highlight">R$ 40 a R$ 60</td></tr>
+          <tr><td>Carrossel estratégico</td><td class="highlight">R$ 80 a R$ 120</td></tr>
+          <tr><td>Arte avulsa</td><td class="highlight">R$ 25 a R$ 40</td></tr>
+          <tr><td>Configuração de tráfego pago</td><td class="highlight">R$ 80 a R$ 150</td></tr>
+          <tr><td>Gestão básica de tráfego mensal</td><td class="highlight">R$ 300 a R$ 600/mês</td></tr>
+          <tr><td>Landing page / site simples</td><td class="highlight">R$ 500 a R$ 1.500</td></tr>
+          <tr><td>Cardápio / catálogo online simples</td><td class="highlight">R$ 400 a R$ 1.200</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <section class="footer-cta">
+      <h2>Quer divulgar sua empresa melhor?</h2>
+      <p>Peça uma arte teste e veja como sua empresa pode aparecer com mais clareza, presença e profissionalismo.</p>
+      <a class="btn btn-primary" href="https://wa.me/5562993650798?text=Ol%C3%A1%2C%20quero%20uma%20arte%20teste%20para%20minha%20empresa." target="_blank">Pedir arte teste</a>
+    </section>
+  </main>
+
+  <footer class="container">
+    Brutal Mídia • Raphael Miranda • Analista de Marketing • Guapó e região
+  </footer>
+</body>
+</html>
